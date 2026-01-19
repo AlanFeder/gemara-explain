@@ -62,11 +62,11 @@
                     </div>
 
                     <div>
-                        <h3 class="font-bold text-slate-700 uppercase text-xs tracking-wider">The Mistake</h3>
-                        <p id="detail-error" class="text-red-600 font-medium leading-snug"></p>
+                        <h3 class="font-bold text-slate-700 uppercase text-xs tracking-wider">The Mistake / Approach</h3>
+                        <p id="detail-error" class="text-slate-800 font-medium leading-snug"></p>
                     </div>
 
-                     <!-- NEW SEFARIA LINKS SECTION -->
+                     <!-- SEFARIA LINKS SECTION -->
                     <div id="detail-links-container">
                          <h3 class="font-bold text-slate-700 uppercase text-xs tracking-wider mb-2">Sefaria Sources</h3>
                          <div id="detail-links" class="flex flex-col gap-2"></div>
@@ -108,7 +108,7 @@
             { year: 89, label: "Temple Rebuilt (Darius II)", type: "redemption_true" }
         ];
 
-        // Define the 4 Opinions
+        // Define the 4 Opinions (Malbim removed)
         const timelines = [
             {
                 id: "belshazzar",
@@ -126,7 +126,7 @@
                 mistake: "Calculation Error (Partial Years). He counted incomplete years as full years, reaching '70' too early.",
                 partialYearText: "Belshazzar counted the year Nebuchadnezzar died (Year 45) AND the year Evil Merodach took over (Year 1) as two separate years. In reality, they happened in the same 12-month span. He turned 1 year of history into 2 years of math.",
                 links: [
-                    { title: "Gemara: Megillah 11b", url: "https://www.sefaria.org/Megillah.11b.11?lang=bi&with=Rashi&lang2=en" },
+                    { title: "Rashi on Megillah 11b (s.v. Minyan)", url: "https://www.sefaria.org/Megillah.11b.12?lang=bi&with=Rashi&lang2=en" },
                     { title: "Story: Daniel Chapter 5", url: "https://www.sefaria.org/Daniel.5?lang=bi" }
                 ]
             },
@@ -144,7 +144,7 @@
                 mistake: "Conflation. He correctly calculated the 70 years of *Babylonian* rule, but mistakenly hoped the Temple would be rebuilt immediately. He didn't realize the Temple had a separate 70-year clock.",
                 partialYearText: null,
                 links: [
-                     { title: "Gemara: Megillah 12a", url: "https://www.sefaria.org/Megillah.12a.1?lang=bi&with=Rashi&lang2=en" },
+                     { title: "Rashi on Megillah 12a (s.v. Tahu)", url: "https://www.sefaria.org/Megillah.12a.3?lang=bi&with=Rashi&lang2=en" },
                      { title: "Verse: Daniel 9:2", url: "https://www.sefaria.org/Daniel.9.2?lang=bi" },
                      { title: "Prophecy: Jeremiah 29:10", url: "https://www.sefaria.org/Jeremiah.29.10?lang=bi" }
                 ]
@@ -167,7 +167,7 @@
                 mistake: "Wrong Start Date. He started from the Exile of Yechonya (Year 8). He should have waited for the Destruction of the Temple (Year 19).",
                 partialYearText: null,
                 links: [
-                    { title: "Gemara: Megillah 11b", url: "https://www.sefaria.org/Megillah.11b.16?lang=bi&with=Rashi&lang2=en" },
+                    { title: "Rashi on Megillah 11b (s.v. Savar)", url: "https://www.sefaria.org/Megillah.11b.16?lang=bi&with=Rashi&lang2=en" },
                     { title: "Story: Esther Chapter 1", url: "https://www.sefaria.org/Esther.1?lang=bi" }
                 ]
             },
@@ -187,11 +187,11 @@
                     { label: "Darius II", years: 2 }
                 ],
                 startDesc: "Destruction of the Temple (Year 19)",
-                mistake: "None! This is the correct calculation. The count is 70 years from Destruction to Rebuilding.",
+                mistake: "Correct! The 70 years of desolation began at the Destruction and ended with the Rebuilding.",
                 isCorrect: true,
                 partialYearText: "<strong>Why does the math equal 72?</strong> <br>26+23+2+5+14+2 = 72. Rashi explains that the calculation spans from the partial year of destruction (Year 19) to the partial year of rebuilding (Darius Year 2). While it touches 72 <em>calendar years</em>, the actual <em>duration</em> of desolation is exactly 70 years because the first and last years are incomplete.",
                 links: [
-                    { title: "Gemara: Megillah 11b (Rava's View)", url: "https://www.sefaria.org/Megillah.11b.20?lang=bi&with=Rashi&lang2=en" },
+                    { title: "Rashi on Megillah 11b (s.v. B'shnat)", url: "https://www.sefaria.org/Megillah.11b.20?lang=bi&with=Rashi&lang2=en" },
                     { title: "Prophecy: Jeremiah 25:12", url: "https://www.sefaria.org/Jeremiah.25.12?lang=bi" }
                 ]
             }
@@ -370,12 +370,15 @@
             // Populate Text
             document.getElementById("detail-title").innerText = data.name;
             document.getElementById("detail-start").innerText = data.startDesc;
-            document.getElementById("detail-error").innerText = data.mistake;
+            document.getElementById("detail-error").innerHTML = data.mistake; // Use innerHTML for formatting
             
             // Badge
             const badge = document.getElementById("detail-badge");
-            badge.innerText = data.isCorrect ? "CORRECT CALCULATION" : "INCORRECT CALCULATION";
+            badge.innerText = data.isCorrect ? "CORRECT / ACCEPTED" : "INCORRECT CALCULATION";
             badge.className = `inline-block px-3 py-1 rounded-full text-xs font-bold text-white mb-4 ${data.isCorrect ? 'bg-green-600' : 'bg-red-500'}`;
+            // Override for Malbim color
+            if(data.id === 'malbim') badge.className = `inline-block px-3 py-1 rounded-full text-xs font-bold text-white mb-4 bg-purple-600`;
+
 
             // Math Breakdown
             const mathHTML = data.segments.map(s => 
