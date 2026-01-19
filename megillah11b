@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Megillah 11b: The 70 Years Calculator</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- D3.js for the visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .timeline-bar { cursor: pointer; transition: opacity 0.2s; }
+        .timeline-bar:hover { opacity: 0.8; }
+        .axis text { font-size: 12px; }
+        .event-line { stroke: #94a3b8; stroke-width: 1; stroke-dasharray: 4; }
+        .tooltip { pointer-events: none; }
+        /* Custom scrollbar for better look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 h-screen flex flex-col overflow-hidden">
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white p-4 md:p-6 shadow-lg flex-shrink-0 z-20">
+        <h1 class="text-2xl md:text-3xl font-bold">The Mystery of the 70 Years</h1>
+        <p class="text-slate-300 mt-1 text-sm md:text-base">Interactive visualization of Gemara Megillah 11b-12a</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="flex flex-col md:flex-row flex-1 overflow-hidden">
+        
+        <!-- Sidebar: Info Panel (Mobile: Top, Desktop: Left) -->
+        <div id="info-panel" class="w-full md:w-1/3 bg-white p-6 border-b md:border-b-0 md:border-r border-slate-200 overflow-y-auto shadow-xl z-10 flex-shrink-0 h-1/3 md:h-full">
+            <div id="intro-text" class="mb-6">
+                <h2 class="text-xl font-bold text-blue-600 mb-2">Instructions</h2>
+                <p class="text-sm text-slate-600">Click on any of the colored timeline bars to see the detailed calculation, the specific kings they counted, and exactly where they made their mistake.</p>
+                <div class="mt-4 p-3 bg-blue-50 text-blue-800 text-xs rounded border border-blue-100">
+                    <strong>Tip:</strong> The Green bar represents the Sages' correct calculation.
+                </div>
+            </div>
+            
+            <div id="details-container" class="hidden h-full flex flex-col">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 id="detail-title" class="text-2xl font-bold"></h2>
+                    <button id="back-btn" class="md:hidden text-xs bg-slate-200 px-2 py-1 rounded">Back</button>
+                </div>
+                <div id="detail-badge" class="inline-block px-3 py-1 rounded-full text-xs font-bold text-white mb-4 self-start"></div>
+                
+                <div class="space-y-4 overflow-y-auto pr-2">
+                    <div>
+                        <h3 class="font-bold text-slate-700 uppercase text-xs tracking-wider">Starting Point</h3>
+                        <p id="detail-start" class="text-lg leading-snug"></p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-bold text-slate-700 uppercase text-xs tracking-wider">The Math</h3>
+                        <div id="detail-math" class="bg-slate-100 p-3 rounded font-mono text-sm border-l-4 border-slate-400 mt-1"></div>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-slate-700 uppercase text-xs tracking-wider">The Mistake</h3>
+                        <p id="detail-error" class="text-red-600 font-medium leading-snug"></p>
+                    </div>
+
+                    <div id="partial-year-box" class="hidden bg-amber-50 border border-amber-200 p-4 rounded mt-2">
+                        <h3 class="font-bold text-amber-800 text-sm mb-1 flex items-center">
+                            <span class="mr-2 text-lg">⚠️</span> Deep Dive: "Shnat Keta'in"
+                        </h3>
+                        <p class="text-xs md:text-sm text-amber-900 leading-relaxed">
+                            Belshazzar counted the year Nebuchadnezzar died (Year 45) AND the year Evil Merodach took over (Year 1) as two separate years. In reality, they happened in the same 12-month span. He turned 1 year of history into 2 years of math.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visualization Area -->
+        <div class="w-full md:w-2/3 relative bg-slate-50 flex-1 overflow-hidden flex flex-col" id="viz-wrapper">
+            <div class="absolute top-4 right-4 bg-white/90 p-2 rounded text-xs text-slate-500 shadow z-10 pointer-events-none">
+                Scroll/Pinch to zoom • Drag to pan
+            </div>
+            <div id="viz-container" class="w-full h-full"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA CONFIGURATION ---
+        
+        // Define key historical events (The "Real" timeline anchors)
+        // Years are relative to Nebuchadnezzar's Year 1
+        const events = [
+            { year: 0, label: "Nebuchadnezzar Begins", type: "start" },
+            { year: 8, label: "Exile of Yechonya", type: "minor" },
+            { year: 19, label: "Destruction of Temple", type: "major" }, // The True Start
+            { year: 70, label: "Cyrus Decree / Belshazzar Dies", type: "redemption_fake" },
+            { year: 78, label: "Achashverosh's Party", type: "party" },
+            { year: 89, label: "Temple Rebuilt (Darius II)", type: "redemption_true" }
+        ];
+
+        // Define the 4 Opinions
+        const timelines = [
+            {
+                id: "belshazzar",
+                name: "Belshazzar",
+                role: "King of Babylon",
+                color: "#ef4444", // Red
+                startYear: 0,
+                endYear: 70,
+                segments: [
+                    { label: "Nebuchadnezzar", years: 45 },
+                    { label: "Evil Merodach", years: 23 },
+                    { label: "Belshazzar", years: 2 }
+                ],
+                startDesc: "Year 1 of Nebuchadnezzar (Rise of Babylon)",
+                mistake: "Calculation Error (Partial Years). He counted incomplete years as full years, reaching '70' too early.",
+                showPartialYearInfo: true
+            },
+            {
+                id: "daniel",
+                name: "Daniel",
+                role: "The Prophet",
+                color: "#3b82f6", // Blue
+                startYear: 0,
+                endYear: 70,
+                segments: [
+                    { label: "Babylonian Rule", years: 70 }
+                ],
+                startDesc: "Year 1 of Nebuchadnezzar",
+                mistake: "Conflation. He correctly calculated the 70 years of *Babylonian* rule, but mistakenly hoped the Temple would be rebuilt immediately. He didn't realize the Temple had a separate 70-year clock."
+            },
+            {
+                id: "achashverosh",
+                name: "Achashverosh",
+                role: "King of Persia",
+                color: "#f97316", // Orange
+                startYear: 8,
+                endYear: 78,
+                segments: [
+                    { label: "Nebuchadnezzar (Remainder)", years: 37 }, // 45 - 8
+                    { label: "Evil Merodach", years: 23 },
+                    { label: "Belshazzar", years: 2 },
+                    { label: "Darius & Cyrus", years: 5 },
+                    { label: "Achashverosh (Current)", years: 3 }
+                ],
+                startDesc: "Exile of Yechonya (Year 8)",
+                mistake: "Wrong Start Date. He started from the Exile of Yechonya (Year 8). He should have waited for the Destruction of the Temple (Year 19)."
+            },
+            {
+                id: "sages",
+                name: "The Sages (True Calculation)",
+                role: "Halacha / Reality",
+                color: "#22c55e", // Green
+                startYear: 19,
+                endYear: 89,
+                segments: [
+                    { label: "Nebuchadnezzar (Remainder)", years: 26 }, // 45 - 19
+                    { label: "Evil Merodach", years: 23 },
+                    { label: "Belshazzar", years: 2 },
+                    { label: "Darius & Cyrus", years: 5 },
+                    { label: "Achashverosh", years: 14 },
+                    { label: "Darius II", years: 2 }
+                ],
+                startDesc: "Destruction of the Temple (Year 19)",
+                mistake: "None! This is the correct calculation. The count is 70 years from Destruction to Rebuilding.",
+                isCorrect: true
+            }
+        ];
+
+        // --- D3 SETUP ---
+        // We use a resize observer to handle window resizing dynamically
+        
+        function initChart() {
+            const container = document.getElementById('viz-container');
+            // clear previous
+            container.innerHTML = '';
+            
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            const margin = { top: 60, right: 60, bottom: 40, left: 20 };
+
+            const svg = d3.select("#viz-container")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .attr("viewBox", `0 0 ${width} ${height}`);
+
+            // X Scale (Years -5 to 100 to give breathing room)
+            const x = d3.scaleLinear()
+                .domain([-2, 95])
+                .range([margin.left, width - margin.right]);
+
+            // Y Scale (4 Tracks)
+            const y = d3.scaleBand()
+                .domain(timelines.map(d => d.id))
+                .range([margin.top, height - margin.bottom])
+                .padding(0.4);
+
+            // Group for content
+            const g = svg.append("g");
+            
+            // Axis Group (stays fixed logically, but scales)
+            const xAxis = d3.axisBottom(x).tickFormat(d => `Yr ${d}`);
+            const axisGroup = svg.append("g")
+                .attr("transform", `translate(0, ${height - margin.bottom})`)
+                .call(xAxis);
+
+            // Zoom Behavior
+            const zoom = d3.zoom()
+                .scaleExtent([1, 5])
+                .translateExtent([[-100, 0], [width + 100, height]])
+                .on("zoom", (event) => {
+                    const newX = event.transform.rescaleX(x);
+                    
+                    // Update bars
+                    g.selectAll("rect").attr("x", d => newX(d.x)).attr("width", d => newX(d.x + d.width) - newX(d.x));
+                    
+                    // Update text labels inside bars
+                    g.selectAll(".bar-label").attr("x", d => newX(d.x + d.width/2));
+                    
+                    // Update name labels
+                    g.selectAll(".name-label").attr("x", d => newX(d.x) - 10);
+                    
+                    // Update event lines
+                    g.selectAll(".event-line").attr("x1", d => newX(d.year)).attr("x2", d => newX(d.year));
+                    g.selectAll(".event-label").attr("x", d => newX(d.year));
+                    
+                    // Update Axis
+                    axisGroup.call(xAxis.scale(newX));
+                });
+
+            svg.call(zoom);
+
+            // --- DRAWING ---
+
+            // 1. Event Lines (Vertical dashed lines)
+            g.selectAll(".event-line")
+                .data(events)
+                .enter()
+                .append("line")
+                .attr("class", "event-line")
+                .attr("x1", d => x(d.year))
+                .attr("x2", d => x(d.year))
+                .attr("y1", margin.top - 20)
+                .attr("y2", height - margin.bottom)
+                .attr("stroke", d => d.type === "major" || d.type === "redemption_true" ? "#334155" : "#cbd5e1")
+                .attr("stroke-width", d => d.type === "major" || d.type === "redemption_true" ? 2 : 1)
+                .attr("stroke-dasharray", "4,4");
+
+            // Event Labels
+            g.selectAll(".event-label")
+                .data(events)
+                .enter()
+                .append("text")
+                .attr("class", "event-label")
+                .attr("x", d => x(d.year))
+                .attr("y", margin.top - 25)
+                .text(d => d.label)
+                .attr("text-anchor", "start")
+                .attr("font-size", "10px")
+                .attr("fill", "#64748b")
+                .style("writing-mode", "vertical-rl") // Vertical text for better fit
+                .style("text-orientation", "mixed");
+
+
+            // 2. Timeline Bars
+            timelines.forEach(t => {
+                const trackY = y(t.id);
+                const trackHeight = y.bandwidth();
+                
+                // Group for this timeline
+                const trackGroup = g.append("g")
+                    .attr("class", "timeline-group")
+                    .style("cursor", "pointer")
+                    .on("click", () => showDetails(t));
+
+                // Draw segments
+                let runningYear = t.startYear;
+                
+                t.segments.forEach((seg, i) => {
+                    const segStart = runningYear;
+                    const segEnd = runningYear + seg.years;
+                    
+                    // Store data for zoom updates
+                    const rectData = { x: segStart, width: seg.years };
+
+                    trackGroup.append("rect")
+                        .datum(rectData)
+                        .attr("x", x(segStart))
+                        .attr("y", trackY)
+                        .attr("width", x(segEnd) - x(segStart))
+                        .attr("height", trackHeight)
+                        .attr("fill", t.color)
+                        .attr("stroke", "white")
+                        .attr("stroke-width", 1)
+                        .attr("rx", 4)
+                        .attr("opacity", i % 2 === 0 ? 1 : 0.85);
+
+                    // Segment Label (if wide enough)
+                    if (seg.years > 5) {
+                         trackGroup.append("text")
+                            .datum(rectData)
+                            .attr("class", "bar-label pointer-events-none")
+                            .attr("x", x(segStart + seg.years/2))
+                            .attr("y", trackY + trackHeight/2 + 4)
+                            .text(seg.years)
+                            .attr("text-anchor", "middle")
+                            .attr("fill", "white")
+                            .attr("font-size", "11px")
+                            .attr("font-weight", "bold");
+                    }
+                    
+                    runningYear += seg.years;
+                });
+
+                // Name Label
+                trackGroup.append("text")
+                    .datum({ x: t.startYear, width: 0 })
+                    .attr("class", "name-label font-sans")
+                    .attr("x", x(t.startYear) - 10)
+                    .attr("y", trackY + trackHeight/2 + 5)
+                    .text(t.name)
+                    .attr("text-anchor", "end")
+                    .attr("font-weight", "bold")
+                    .attr("fill", t.color)
+                    .attr("font-size", "14px");
+            });
+        }
+
+        // --- INTERACTIVITY ---
+
+        function showDetails(data) {
+            const panel = document.getElementById("details-container");
+            const intro = document.getElementById("intro-text");
+            
+            // Hide intro, show details
+            intro.classList.add("hidden");
+            panel.classList.remove("hidden");
+
+            // Populate Text
+            document.getElementById("detail-title").innerText = data.name;
+            document.getElementById("detail-start").innerText = data.startDesc;
+            document.getElementById("detail-error").innerText = data.mistake;
+            
+            // Badge
+            const badge = document.getElementById("detail-badge");
+            badge.innerText = data.isCorrect ? "CORRECT CALCULATION" : "INCORRECT CALCULATION";
+            badge.className = `inline-block px-3 py-1 rounded-full text-xs font-bold text-white mb-4 ${data.isCorrect ? 'bg-green-600' : 'bg-red-500'}`;
+
+            // Math Breakdown
+            const mathHTML = data.segments.map(s => 
+                `<div class="flex justify-between border-b border-slate-200 last:border-0 py-1">
+                    <span class="text-slate-600">${s.label}</span> 
+                    <span class="font-bold">${s.years}</span>
+                </div>`
+            ).join("");
+            
+            const total = data.segments.reduce((acc, curr) => acc + curr.years, 0);
+            document.getElementById("detail-math").innerHTML = 
+                `${mathHTML}<div class="border-t-2 border-slate-300 mt-2 pt-2 flex justify-between font-bold text-slate-800"><span>TOTAL:</span> <span>${total} Years</span></div>`;
+
+            // Partial Year Box
+            const partialBox = document.getElementById("partial-year-box");
+            if (data.showPartialYearInfo) {
+                partialBox.classList.remove("hidden");
+            } else {
+                partialBox.classList.add("hidden");
+            }
+        }
+
+        document.getElementById('back-btn').addEventListener('click', () => {
+             document.getElementById("details-container").classList.add("hidden");
+             document.getElementById("intro-text").classList.remove("hidden");
+        });
+
+        // Initialize
+        window.addEventListener('resize', initChart);
+        // Delay slighty to ensure container has size
+        setTimeout(initChart, 100);
+
+    </script>
+</body>
+</html>
