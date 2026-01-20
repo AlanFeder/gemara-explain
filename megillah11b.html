@@ -292,7 +292,10 @@
             
             const width = container.clientWidth;
             const height = container.clientHeight;
-            const margin = { top: 80, right: 100, bottom: 60, left: 40 };
+            // ADJUSTED MARGINS: 
+            // - Left: Reduced to 115 (was 130)
+            // - Top: Adjusted to 135 to balance cut-off vs gap
+            const margin = { top: 135, right: 80, bottom: 60, left: 115 };
 
             const svg = d3.select("#viz-container")
                 .append("svg")
@@ -398,7 +401,7 @@
                 .attr("class", "event-line")
                 .attr("x1", d => x(d.year))
                 .attr("x2", d => x(d.year))
-                .attr("y1", margin.top - 30)
+                .attr("y1", margin.top - 5) // Moved much closer to bars (was -15)
                 .attr("y2", height - margin.bottom)
                 .attr("stroke", d => d.type.includes("redemption_true") ? "#10b981" : "#cbd5e1")
                 .attr("stroke-width", d => d.type === "major" || d.type.includes("redemption") ? 2 : 1)
@@ -410,13 +413,13 @@
                 .append("text")
                 .attr("class", "event-label")
                 .attr("x", d => x(d.year))
-                .attr("y", margin.top - 40)
+                .attr("y", margin.top - 15) // Moved much closer to bars (was -25)
                 .text(d => d.label)
                 .attr("text-anchor", "start")
                 .attr("font-size", "10px")
                 .attr("font-weight", "600")
                 .attr("fill", "#64748b")
-                .attr("transform", d => `rotate(-45, ${x(d.year)}, ${margin.top - 40})`);
+                .attr("transform", d => `rotate(-45, ${x(d.year)}, ${margin.top - 15})`); // Matches new Y position
 
             // 2. Timelines
             timelines.forEach(t => {
