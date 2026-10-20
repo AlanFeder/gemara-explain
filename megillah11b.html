@@ -5,34 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Megillah 11b: The 70 Years Calculator</title>
     
+    <script src="assets/d3.js"></script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- D3.js -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        // Custom palette matching the "Nano Banana" aesthetic
-                        paper: '#f8f9fa',
-                        ink: '#1e293b',
-                    }
-                }
-            }
-        }
-    </script>
 
     <style>
         body { background-color: #f0f2f5; background-image: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 24px 24px; }
@@ -53,6 +34,7 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
     </style>
+    <link rel="stylesheet" href="assets/app.css">
 </head>
 <body class="text-ink h-screen flex flex-col overflow-hidden selection:bg-blue-200 selection:text-blue-900">
 
