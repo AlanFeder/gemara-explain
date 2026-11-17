@@ -25,8 +25,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-node_modules/d3 (7.9.0)
-Copyright 2010-2023 Mike Bostock
+node_modules/d3 (7.9.2)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -43,8 +43,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-array (3.2.4)
-Copyright 2010-2023 Mike Bostock
+node_modules/d3-array (3.2.5)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -61,8 +61,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-axis (3.0.0)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-axis (3.0.1)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -79,8 +79,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-brush (3.0.0)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-brush (3.0.1)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -97,8 +97,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-chord (3.0.1)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-chord (3.0.2)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -115,8 +115,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-color (3.1.0)
-Copyright 2010-2022 Mike Bostock
+node_modules/d3-color (3.1.1)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -133,8 +133,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-contour (4.0.2)
-Copyright 2012-2023 Mike Bostock
+node_modules/d3-contour (4.0.3)
+Copyright 2012-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -151,8 +151,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-delaunay (6.0.4)
-Copyright 2018-2021 Observable, Inc.
+node_modules/d3-delaunay (6.0.6)
+Copyright 2018-2026 Observable, Inc.
 Copyright 2021 Mapbox
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
@@ -170,8 +170,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-dispatch (3.0.1)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-dispatch (3.0.2)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -188,8 +188,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-drag (3.0.0)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-drag (3.0.1)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -206,8 +206,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-dsv (3.0.1)
-Copyright 2013-2021 Mike Bostock
+node_modules/d3-dsv (3.0.2)
+Copyright 2013-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -224,8 +224,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-ease (3.0.1)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-ease (3.0.2)
+Copyright 2010-2026 Mike Bostock
 Copyright 2001 Robert Penner
 All rights reserved.
 
@@ -257,8 +257,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ---
 
-node_modules/d3-fetch (3.0.1)
-Copyright 2016-2021 Mike Bostock
+node_modules/d3-fetch (3.0.2)
+Copyright 2016-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -275,25 +275,7 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-force (3.0.0)
-Copyright 2010-2021 Mike Bostock
-
-Permission to use, copy, modify, and/or distribute this software for any purpose
-with or without fee is hereby granted, provided that the above copyright notice
-and this permission notice appear in all copies.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
-FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
-OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
-TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
-THIS SOFTWARE.
-
-
----
-
-node_modules/d3-format (3.1.2)
+node_modules/d3-force (3.0.1)
 Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
@@ -311,8 +293,26 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-geo (3.1.1)
-Copyright 2010-2024 Mike Bostock
+node_modules/d3-format (3.1.3)
+Copyright 2010-2026 Mike Bostock
+
+Permission to use, copy, modify, and/or distribute this software for any purpose
+with or without fee is hereby granted, provided that the above copyright notice
+and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
+THIS SOFTWARE.
+
+
+---
+
+node_modules/d3-geo (3.1.2)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -350,8 +350,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-node_modules/d3-hierarchy (3.1.2)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-hierarchy (3.1.3)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -368,8 +368,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-interpolate (3.0.1)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-interpolate (3.0.2)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -386,8 +386,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-path (3.1.0)
-Copyright 2015-2022 Mike Bostock
+node_modules/d3-path (3.1.1)
+Copyright 2015-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -404,8 +404,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-polygon (3.0.1)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-polygon (3.0.2)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -422,8 +422,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-quadtree (3.0.1)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-quadtree (3.0.2)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -440,8 +440,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-random (3.0.1)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-random (3.0.2)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -458,8 +458,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-scale (4.0.2)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-scale (4.0.3)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -476,8 +476,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-scale-chromatic (3.1.0)
-Copyright 2010-2024 Mike Bostock
+node_modules/d3-scale-chromatic (3.1.1)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -509,8 +509,8 @@ specific language governing permissions and limitations under the License.
 
 ---
 
-node_modules/d3-selection (3.0.0)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-selection (3.0.1)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -527,8 +527,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-shape (3.2.0)
-Copyright 2010-2022 Mike Bostock
+node_modules/d3-shape (3.2.1)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -545,8 +545,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-time (3.1.0)
-Copyright 2010-2022 Mike Bostock
+node_modules/d3-time (3.1.1)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -563,8 +563,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-time-format (4.1.0)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-time-format (4.1.1)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -581,8 +581,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-timer (3.0.1)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-timer (3.0.2)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -599,8 +599,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-transition (3.0.1)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-transition (3.0.2)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
@@ -617,8 +617,8 @@ THIS SOFTWARE.
 
 ---
 
-node_modules/d3-zoom (3.0.0)
-Copyright 2010-2021 Mike Bostock
+node_modules/d3-zoom (3.0.1)
+Copyright 2010-2026 Mike Bostock
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
